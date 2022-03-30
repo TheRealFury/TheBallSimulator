@@ -9,7 +9,8 @@ var verticalconstant = 10;
 var gravitationalconstant = 1;
 
 // Decides the vertical bounce efficiency.
-var verticalBounceEfficiency = 1/2;
+var verticalBounceEfficiency = 0.5;
+var horizontalBounceEfficiency = 0.5;
 
 function setup(){
   
@@ -25,20 +26,34 @@ function setup(){
 
   // Creates the input boxes.
   gravityInput = createInput(str(gravitationalconstant));
-  gravityInput.position(wall1.x + 150, 150);
-  bounceInput = createInput(str(verticalBounceEfficiency));
-  bounceInput.position(gravityInput.x, gravityInput.y + 50);
+  gravityInput.position(wall1.x + 300, 150);
+  vBounceInput = createInput(str(verticalBounceEfficiency));
+  vBounceInput.position(gravityInput.x, gravityInput.y + 50);
+  hBounceInput = createInput(str(horizontalBounceEfficiency));
+  hBounceInput.position(vBounceInput.x, vBounceInput.y + 50);
+  horizontalInput = createInput(str(horizontalconstant));
+  horizontalInput.position(hBounceInput.x, hBounceInput.y + 50);
+  verticalInput = createInput(str(verticalconstant));
+  verticalInput.position(horizontalInput.x, horizontalInput.y + 50);
 
   // Creates the button to save changes.
   submit = createButton('Run');
-  submit.position(bounceInput.x, bounceInput.y + 100);
+  submit.position(vBounceInput.x, 500);
   submit.mousePressed(changeValues)
 }
 
 function draw(){
 
   // The background colour.
-  background(220);
+  background(255);
+
+  fill(0);
+  textSize(20);
+  text("Gravity : ", gravityInput.x - 275, gravityInput.y + 15);
+  text("Vertical Bounce Efficiency : ", gravityInput.x - 275, vBounceInput.y + 15);
+  text("Horizontal Bounce Efficiency : ", gravityInput.x - 275, hBounceInput.y + 15);
+  text("Initial Horizontal Velocity : ", gravityInput.x - 275, horizontalInput.y + 15);
+  text("Initial Vertical Velocity : ", gravityInput.x - 275, verticalInput.y + 15);
 
   // The initial mode where ball follows the mouse.
   if(mode == 'follow' && (mouseX < (wall1.x - 10)) && (mouseX > (wall2.x + 10))){
@@ -86,7 +101,7 @@ function draw(){
           ball.x = wall1.x - 11;
 
           // Reverses the ball's horizontal velocity.
-          ball.velocityX = -1 * (ball.velocityX);
+          ball.velocityX = -1 * (ball.velocityX * (horizontalBounceEfficiency));
         }
 
         //Wall2
@@ -96,7 +111,7 @@ function draw(){
           ball.x = wall2.x + 11;
 
           // Reverses the ball's horizontal velocity.
-          ball.velocityX = -1 * (ball.velocityX);
+          ball.velocityX = -1 * (ball.velocityX * (horizontalBounceEfficiency));
         }
       }
     }
@@ -158,11 +173,20 @@ function keyPressed() {
 // Function to change the values in-game.
 function changeValues(){
 
-  // Change gravitational contant.
+  // Change gravitational constant.
   gravitationalconstant = parseFloat(gravityInput.value(), 10);
   
-  // Change bounce efficiency.
-  verticalBounceEfficiency = parseFloat(bounceInput.value(), 10);
+  // Change vertical bounce efficiency.
+  verticalBounceEfficiency = parseFloat(vBounceInput.value(), 10);
+
+  // Change horizontal bounce efficiency.
+  horizontalBounceEfficiency = parseFloat(hBounceInput.value(), 10);
+
+  // Change horizontal constant.
+  horizontalconstant = parseFloat(horizontalInput.value(), 10);
+  
+  // Change vertical constant.
+  verticalconstant = parseFloat(verticalInput.value(), 10);
 
   // Reset the game.
   mode = 'follow';
