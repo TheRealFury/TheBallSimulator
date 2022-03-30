@@ -107,13 +107,24 @@ function draw(){
     ball.y = surface.y - 10;
   }
 
+  // IF CONDITION that enables the click-run function.
   if(mouseIsPressed){
+
+    // Change mode so that all on-going logic is first stopped.
     mode = 'follow';
+
+    // Sets ball position to mouse position (to fix the bug that ball does not go to mouse position when mode is simply changed to 'follow').
     ball.x = mouseX;
     ball.y = mouseY;
+
+    // Gives initial velocities to the ball (X and Y).
     ball.velocityX = horizontalconstant;
     ball.velocityY = verticalconstant;
+
+    // Saves the changed values (if any) to the game.
     changeValues();
+
+    // Starts game with logic.
     mode = 'run';
   }
 
