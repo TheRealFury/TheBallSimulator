@@ -107,6 +107,16 @@ function draw(){
     ball.y = surface.y - 10;
   }
 
+  if(mouseIsPressed){
+    mode = 'follow';
+    ball.x = mouseX;
+    ball.y = mouseY;
+    ball.velocityX = horizontalconstant;
+    ball.velocityY = verticalconstant;
+    changeValues();
+    mode = 'run';
+  }
+
   // Draws the sprites after all the logic has taken place.
   drawSprites();
 }
@@ -138,7 +148,7 @@ function changeValues(){
   // Change gravitational contant.
   gravitationalconstant = parseFloat(gravityInput.value(), 10);
   
-  // CHange bounce efficiency.
+  // Change bounce efficiency.
   verticalBounceEfficiency = parseFloat(bounceInput.value(), 10);
 
   // Reset the game.
