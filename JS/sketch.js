@@ -51,6 +51,8 @@ function draw(){
   // This mode has all the functions that decide the in-game play.
   if(mode == 'run'){
 
+    console.log(ball.velocityY);
+
     //  IF FUNCTION that makes sure that the ball remains on top of the surface and controls the vertical bounce efficiency.
     if(ball.y - surface.y > -10){
 
@@ -108,7 +110,7 @@ function draw(){
   }
 
   // IF CONDITION that enables the click-run function.
-  if(mouseIsPressed){
+  if(mouseIsPressed && (mouseX < (wall1.x - 10)) && (mouseX > (wall2.x + 10))){
 
     // Change mode so that all on-going logic is first stopped.
     mode = 'follow';
