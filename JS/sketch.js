@@ -12,6 +12,9 @@ var gravitationalconstant = 1;
 var verticalBounceEfficiency = 0.5;
 var horizontalBounceEfficiency = 0.5;
 
+// Variable for air resistance.
+var airResistance = 1/50;
+
 function setup(){
   
   // Set the stage - the canvas.
@@ -37,6 +40,8 @@ function setup(){
   horizontalInput.position(hBounceInput.x, hBounceInput.y + 50);
   verticalInput = createInput(str(verticalconstant));
   verticalInput.position(horizontalInput.x, horizontalInput.y + 50);
+  airResistanceInput = createInput(str(airResistance));
+  airResistanceInput.position(verticalInput.x, verticalInput.y + 50);
 
   // Creates the button to save changes.
   submit = createButton('Run');
@@ -49,6 +54,7 @@ function draw(){
   // The background colour.
   background(255);
 
+  // Text displayed beside the inputs.
   fill(0);
   textSize(20);
   text("Gravity : ", gravityInput.x - 275, gravityInput.y + 15);
@@ -56,6 +62,7 @@ function draw(){
   text("Horizontal Bounce Efficiency : ", gravityInput.x - 275, hBounceInput.y + 15);
   text("Initial Horizontal Velocity : ", gravityInput.x - 275, horizontalInput.y + 15);
   text("Initial Vertical Velocity : ", gravityInput.x - 275, verticalInput.y + 15);
+  text("Air Resistance : ", gravityInput.x - 275, airResistanceInput.y + 15);
 
   // The initial mode where ball follows the mouse.
   if(mode == 'follow' && (mouseX < (wall1.x - 10)) && (mouseX > (wall2.x + 10))){
@@ -98,7 +105,7 @@ function draw(){
       if((wall1.x - ball.x > 10) && (wall2.x - ball.x < 10) && (ball.velocityX != 0)){
 
         // Add's an artificial air resistance's effect on the ball, which slows it's horizontal movement.
-        ball.velocityX -= (ball.velocityX * (1/50));
+        ball.velocityX -= (ball.velocityX * (airResistance));
       }
 
       // ELSE CONDITION for if the ball is touching either of the walls.
@@ -201,6 +208,9 @@ function changeValues(){
   
   // Change vertical constant.
   verticalconstant = parseFloat(verticalInput.value(), 10);
+
+  // Change air resistance constant.
+  airResistance = parseFloat(airResistanceInput.value(), 10);
 
   // Reset the game.
   mode = 'follow';
