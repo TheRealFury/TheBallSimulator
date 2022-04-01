@@ -24,10 +24,9 @@ function setup(){
   ball = createSprite(300, 100, 10, 10);
   ball.visible = false;
   surface = createSprite(windowWidth/4, 595, windowWidth/2, 10);
-  wall1 = createSprite(windowWidth/2, windowHeight/2, 10, windowHeight);
-  wall2 = createSprite(5, windowHeight/2, 10, windowHeight);
+  wall1 = createSprite(windowWidth/2, windowHeight/2, 10, windowHeight - 10);
+  wall2 = createSprite(5, windowHeight/2, 10, windowHeight - 10);
   ceiling = createSprite(surface.x, surface.y - 585, surface.width, surface.height);
-
 
   // Creates the input boxes.
   gravityInput = createInput(str(gravitationalconstant));
