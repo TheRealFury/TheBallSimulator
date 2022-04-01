@@ -19,6 +19,7 @@ function setup(){
 
   // Create all the sprites necessary for the simulator.
   ball = createSprite(300, 100, 10, 10);
+  ball.visible = false;
   surface = createSprite(windowWidth/4, 595, windowWidth/2, 10);
   wall1 = createSprite(windowWidth/2, windowHeight/2, 10, windowHeight);
   wall2 = createSprite(5, windowHeight/2, 10, windowHeight);
@@ -153,6 +154,10 @@ function draw(){
     // Starts game with logic.
     mode = 'run';
   }
+
+  // Draws a circle where the sprite should be;
+  fill('grey');
+  circle(ball.x, ball.y, 10);
 
   // Draws the sprites after all the logic has taken place.
   drawSprites();
