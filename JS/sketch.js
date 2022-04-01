@@ -22,6 +22,7 @@ function setup(){
   surface = createSprite(windowWidth/4, 595, windowWidth/2, 10);
   wall1 = createSprite(windowWidth/2, windowHeight/2, 10, windowHeight);
   wall2 = createSprite(5, windowHeight/2, 10, windowHeight);
+  ceiling = createSprite(surface.x, surface.y - 585, surface.width, surface.height);
 
 
   // Creates the input boxes.
@@ -66,13 +67,21 @@ function draw(){
   // This mode has all the functions that decide the in-game play.
   if(mode == 'run'){
 
-    console.log(ball.velocityY);
-
     //  IF FUNCTION that makes sure that the ball remains on top of the surface and controls the vertical bounce efficiency.
-    if(ball.y - surface.y > -10){
+    if(ball.y - surface.y > -10 || ball.y - ceiling.y < 10){
 
-      // Set's the ball's position on top of the surface.
-      ball.y = surface.y - 10;
+      
+      if(ball.y - ceiling.y < 10){
+
+        // Set's the ball's position on top of the surface.
+        ball.y = ceiling.y = 10;
+      }
+      
+      else if(ball.y - surface.y > -10){
+
+        // Set's the ball's position on top of the surface.
+        ball.y = surface.y - 10;
+      }
 
       // Reverses ball's vertical velocity and deducts a value based on the efficiency of the bounce.
       ball.velocityY = -1 * (ball.velocityY * (verticalBounceEfficiency));
